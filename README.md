@@ -15,8 +15,7 @@
 
 - has_many :items
 - has_many :comments
-- has_one :receivers
-- has_one :purchases
+- has_one :purchase
 
 # itemsテーブル
 
@@ -37,7 +36,6 @@
 - belongs_to :user
 - has_many :comments
 - has_one :purchases
-- has_one :receivers
 
 ## commentsテーブル
 
@@ -55,26 +53,28 @@
 
 ## receiversテーブル
 
-| Column          | Type       | Options     |
-| ----------------| -----------| ------------|
-| postal_code     | string     | null: false |
-| prefecture_id   | integer    | null: false |
-| city            | string     | null: false |
-| address         | string     | null: false |
-| building_name   | string     |             |
-| phone_number    | string     | null: false |
-| purchases       | references |             |
+| Column          | Type       | Options                        |
+| ----------------| -----------| -------------------------------|
+| postal_code     | string     | null: false                    |
+| ship_from_id    | integer    | null: false                    |
+| city            | string     | null: false                    |
+| address         | string     | null: false                    |
+| building_name   | string     |                                |
+| phone_number    | string     | null: false                    |
+| purchase        | references | null: false, foreign_key: true |
 
 ### Association
 - belongs_to :purchase
 
+
 ## purchasesテーブル
 
-| Column | Type       | Options     |
-| -------| -----------| ------------|
-| user   | references | null: false |
-| item   | references | null: false |
+| Column | Type       | Options                        |
+| -------| -----------| -------------------------------|
+| user   | references | null: false, foreign_key: true |
+| item   | references | null: false, foreign_key: true |
 
 ### Association
 - belongs_to :user
 - belongs_to :item
+- has_one :receiver
