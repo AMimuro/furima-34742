@@ -16,10 +16,10 @@ class ItemsController < ApplicationController
   end
 
 
-  private
+  #private
 
-  def item_params
-    params.require(:user).permit(:nickname, :family_name, :first_name, :family_name_kana, :first_name_kana, :birthday).merge(user_id:current_user.id)
-  end
+  #def item_params
+    #params.require(:user).permit(:nickname, :family_name, :first_name, :family_name_kana, :first_name_kana, :birthday).merge(user_id:current_user.id)
+  #end
 
 end
