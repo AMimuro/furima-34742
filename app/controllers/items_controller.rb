@@ -2,18 +2,18 @@ class ItemsController < ApplicationController
   def index
   end
 
-  def new
-    @item = Item.new
-  end
+  #def new
+    #@item = Item.new
+ # end
 
-  def create
-    @item = Item.new(item_params)
-    if @item.save
-      redirect_to root_path
-    else
-      render :"sessions/new"
-    end
-  end
+ # def create
+   # @item = Item.new(item_params)
+   # if @item.save
+      #redirect_to root_path
+    #else
+      #render :"sessions/new"
+    #end
+  #end
 
 
   #private
