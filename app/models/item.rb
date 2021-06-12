@@ -10,9 +10,11 @@ class Item < ApplicationRecord
   belongs_to_active_hash :shipping_day
 
   with_options presence: true do
+    validates :image
     validates :item_name
     validates :item_text 
-    validates :price 
+    validates :price, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999 }
+    validates :price, numericality: { only_integer: true, message: "Half-width number." }
     validates :category_id, numericality: { other_than: 0, message: 'Select' }
     validates :status_id, numericality: { other_than: 0, message: 'Select' }
     validates :delivery_charge_id, numericality: { other_than: 0, message: 'Select' }
