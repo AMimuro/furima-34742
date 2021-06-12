@@ -17,7 +17,7 @@ RSpec.describe Item, type: :model do
       
     end
 
-    context '商品出品できないとき'
+    context '商品出品できないとき' do
   
       it '商品画像がないと出品できない' do
         @item.image = nil
@@ -90,6 +90,7 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include('Price must be less than or equal to 9999999')
       end
+
     end
   end
 end
