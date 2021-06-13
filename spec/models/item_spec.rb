@@ -128,6 +128,12 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Shipping day Select")
       end
 
+      it 'userが紐づいていない場合は登録できないこと' do
+        @item.user = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include('User must exist')
+      end
+
     end
   end
 end
