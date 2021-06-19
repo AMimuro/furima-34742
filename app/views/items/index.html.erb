@@ -128,8 +128,8 @@
     </div>
     <ul class='item-lists'>
     
-    <% if @item[0] != nil %>
-      <% @item.each do |item| %>
+    <% if @items[0] != nil %>
+      <% @items.each do |item| %>
         <li class='list'>
             <%= link_to items_path(item.id), method: :get  do %>
             <div class='item-img-content'>
@@ -158,7 +158,7 @@
         </li>
       <% end %>
 
-    <% else @item.length == 0 %>
+    <% else %>
         <li class='list'>
           <%= link_to "#" do %>
           <%= image_tag "https://tech-master.s3.amazonaws.com/uploads/curriculums/images/Rails1-4/sample.jpg", class: "item-img" %>
