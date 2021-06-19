@@ -23,4 +23,7 @@ class Item < ApplicationRecord
     validates :shipping_day_id
   end
   validates :price, numericality: {only_integer: true}
+  def was_attached?
+    self.image.attached?
+  end
 end
