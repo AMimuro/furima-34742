@@ -35,13 +35,13 @@ RSpec.describe Item, type: :model do
       it 'カテゴリーの情報がないと出品できない' do
         @item.category_id = ''
         @item.valid?
-        expect(@item.errors.full_messages).to include("Category Select")
+        expect(@item.errors.full_messages).to include('Category Select')
       end
 
       it '商品の状態についての情報がないと出品できない' do
         @item.status_id = ''
         @item.valid?
-        expect(@item.errors.full_messages).to include("Status Select")
+        expect(@item.errors.full_messages).to include('Status Select')
       end
 
       it '配送料の負担についての情報がないと出品できない' do
@@ -71,19 +71,19 @@ RSpec.describe Item, type: :model do
       it '販売価格は全角数字では出品できない' do
         @item.price = '４００'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price is not included in the list")
+        expect(@item.errors.full_messages).to include('Price is not included in the list')
       end
 
       it '販売価格は半角英数字混合では登録できない' do
-        @item.price = "300dollars"
+        @item.price = '300dollars'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price is not a number")
+        expect(@item.errors.full_messages).to include('Price is not a number')
       end
 
       it '販売価格は半角英語だけでは登録できない' do
-        @item.price = "threemillion"
+        @item.price = 'threemillion'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price is not included in the list")
+        expect(@item.errors.full_messages).to include('Price is not included in the list')
       end
 
       it '販売価格は300円以下だと出品できない' do
@@ -99,9 +99,9 @@ RSpec.describe Item, type: :model do
       end
 
       it 'category_idが「0」では登録できないこと' do
-          @item.category_id = 0
-          @item.valid?
-          expect(@item.errors.full_messages).to include('Category Select')
+        @item.category_id = 0
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Category Select')
       end
 
       it 'status_idが「0」では登録できないこと' do
@@ -113,19 +113,19 @@ RSpec.describe Item, type: :model do
       it 'delivery_charge_idが「0」では登録できないこと' do
         @item.delivery_charge_id = 0
         @item.valid?
-        expect(@item.errors.full_messages).to include("Delivery charge Select")
+        expect(@item.errors.full_messages).to include('Delivery charge Select')
       end
 
       it 'ship_from_idが「0」では登録できないこと' do
         @item.ship_from_id = 0
         @item.valid?
-        expect(@item.errors.full_messages).to include("Ship from Select")
+        expect(@item.errors.full_messages).to include('Ship from Select')
       end
 
       it 'shipping_day_idが「0」では登録できないこと' do
         @item.shipping_day_id = 0
         @item.valid?
-        expect(@item.errors.full_messages).to include("Shipping day Select")
+        expect(@item.errors.full_messages).to include('Shipping day Select')
       end
 
       it 'userが紐づいていない場合は登録できないこと' do
@@ -133,7 +133,6 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include('User must exist')
       end
-
     end
   end
 end

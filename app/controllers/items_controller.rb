@@ -1,10 +1,10 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update]
-  before_action :item_find, only: [:show, :edit, :update]
-  before_action :redirect_root, only: [:edit, :update]
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action :item_find, only: [:show, :edit, :update, :destroy]
+  before_action :redirect_root, only: [:edit, :update, :destroy]
 
   def index
-    @items = Item.order("id desc")
+    @items = Item.order('id desc')
   end
 
   def new
@@ -21,20 +21,22 @@ class ItemsController < ApplicationController
   end
 
   def show
-    
   end
 
   def edit
-    
   end
 
   def update
-    
     if @item.update(item_params)
       redirect_to item_path(@item)
     else
       render :edit
     end
+  end
+
+  def destroy
+    @item.destroy
+    redirect_to root_path
   end
 
   private
@@ -51,5 +53,4 @@ class ItemsController < ApplicationController
     params.require(:item).permit(:image, :item_name, :item_text, :category_id, :delivery_charge_id, :status_id, :ship_from_id,
                                  :shipping_day_id, :price).merge(user_id: current_user.id)
   end
-
 end
