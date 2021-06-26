@@ -22,6 +22,5 @@ class Item < ApplicationRecord
     validates :ship_from_id
     validates :shipping_day_id
   end
-  validates :price, numericality: {only_integer: true}
-  
+  validates :price, numericality: { only_integer: true }
 end
