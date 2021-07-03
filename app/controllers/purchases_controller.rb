@@ -3,8 +3,7 @@ class PurchasesController < ApplicationController
   def index
     @purchase_receiver = PurchaseReceiver.new
     @item = Item.find(params[:item_id])
-  end
-  
+  end  
 
   def create
     @purchase_receiver = PurchaseReceiver.new(purchase_params)
