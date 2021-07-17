@@ -46,7 +46,9 @@ class ItemsController < ApplicationController
   end
 
   def redirect_root
-    redirect_to root_path unless current_user.id == @item.user_id
+    if @item.user_id != current_user.id || @item.purchase != nil #　コードを追加
+      redirect_to root_path
+    end
   end
 
   def item_params
