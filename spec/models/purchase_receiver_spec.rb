@@ -2,7 +2,12 @@ require 'rails_helper'
 
 RSpec.describe PurchaseReceiver, type: :model do
   before do
-    @purchase_receiver = FactoryBot.build(:purchase_receiver)
+    item = FactoryBot.build(:item)
+    item.image = fixture_file_upload('public/images/test_image.png')
+    item.save
+    user = FactoryBot.create(:user)
+    @purchase_receiver = FactoryBot.build(:purchase_receiver, item_id: item.id, user_id: user.id)
+    sleep 0.1
   end
 
   
@@ -10,6 +15,11 @@ RSpec.describe PurchaseReceiver, type: :model do
     it "tokenがあれば保存ができること" do
       expect(@purchase_receiver).to be_valid
     end
+
+    it "建物名が空でも保存ができること" do
+      expect(@purchase_receiver).to be_valid
+    end
+
   end
 
   context '内容に問題がある場合' do
@@ -62,7 +72,13 @@ RSpec.describe PurchaseReceiver, type: :model do
     end
 
     it 'phone_numberが11桁以内でないと保存できないこと' do
-      @purchase_receiver.phone_number = '090-1234-56789'
+      @purchase_receiver.phone_number = "090123456789"
+      @purchase_receiver.valid?
+      expect(@purchase_receiver.errors.full_messages).to include('Phone number is invalid.')
+    end
+
+    it 'phone_numberが英数字混合では保存できないこと' do
+      @purchase_receiver.phone_number = '300dollars'
       @purchase_receiver.valid?
       expect(@purchase_receiver.errors.full_messages).to include('Phone number is invalid.')
     end
@@ -72,5 +88,18 @@ RSpec.describe PurchaseReceiver, type: :model do
       @purchase_receiver.valid?
       expect(@purchase_receiver.errors.full_messages).to include("City can't be blank")
     end
+
+    it "user_idが空では購入ができないこと" do
+      @purchase_receiver.user_id = nil
+      @purchase_receiver.valid?
+      expect(@purchase_receiver.errors.full_messages).to include("User can't be blank")
+    end
+
+    it "item_idが空では購入ができないこと" do
+      @purchase_receiver.item_id = nil
+      @purchase_receiver.valid?
+      expect(@purchase_receiver.errors.full_messages).to include("Item can't be blank")
+    end
+
   end
 end
