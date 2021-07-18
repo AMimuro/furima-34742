@@ -17,6 +17,7 @@ RSpec.describe PurchaseReceiver, type: :model do
     end
 
     it "建物名が空でも保存ができること" do
+      @purchase_receiver.building_name = ""
       expect(@purchase_receiver).to be_valid
     end
 
