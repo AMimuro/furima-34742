@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :item_find, only: [:show, :edit, :update, :destroy]
-  before_action :redirect_root, only: [:update]
+  
 
   def index
     @items = Item.order('id desc')
@@ -44,12 +44,6 @@ class ItemsController < ApplicationController
 
   def item_find
     @item = Item.find(params[:id])
-  end
-
-  def redirect_root
-    if @item.user_id == current_user.id || @item.purchase != nil 
-      redirect_to root_path
-    end
   end
 
   def item_params
