@@ -24,8 +24,10 @@ class ItemsController < ApplicationController
   end
 
   def edit
-     redirect_to root_path unless current_user.id == @item.user_id
-  end
+     if current_user.id == @item.user_id && @item.purchase != nil  
+       redirect_to root_path
+     end
+    end
 
   def update
     if @item.update(item_params)
