@@ -3,23 +3,25 @@ const pay = () => {
   const submit = document.getElementById("charge-form");
   submit.addEventListener("submit", (e) => { // イベント発火
     e.preventDefault();
+
     const formResult = document.getElementById("charge-form");
     const formData = new FormData(formResult);
- 
+
     const card = {
       number: formData.get("purchase_receiver[number]"),              // カード番号
       cvc: formData.get("purchase_receiver[cvc]"),                    // カード裏面の3桁の数字
       exp_month: formData.get("purchase_receiver[exp_month]"),        // 有効期限の月
       exp_year: `20${formData.get("purchase_receiver[exp_year]")}`,   // 有効期限の年
     };
-
+    console.log(card);
+    
     Payjp.createToken(card, (status, response) => {
-      if (status == 200) {
+      if (status === 200) {
         const token = response.id;
         const renderDom = document.getElementById("charge-form");
-        const tokenObj = `<input value=${token} name='token' type="hidden"> `;
+        const tokenObj = `<input value=${token} name="token" type="hidden"> `;
         renderDom.insertAdjacentHTML("beforeend", tokenObj);
-      }
+      } 
 
       document.getElementById("card-number").removeAttribute("name");
       document.getElementById("card-cvc").removeAttribute("name");

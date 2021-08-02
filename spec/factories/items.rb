@@ -10,5 +10,8 @@ FactoryBot.define do
     price              { 800 }
 
     association :user
+    after(:build) do |item|
+      item.images.attach(io: File.open(Rails.root.join('spec/fixtures/sample.png')), filename: 'sample.png')
+    end
   end
 end

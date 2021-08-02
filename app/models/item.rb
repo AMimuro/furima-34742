@@ -1,7 +1,8 @@
 class Item < ApplicationRecord
   belongs_to :user
   has_one :purchase
-  has_one_attached :image
+  has_one :item_purchase
+  has_many_attached :images
   extend ActiveHash::Associations::ActiveRecordExtensions
 
   belongs_to_active_hash :category
@@ -11,12 +12,12 @@ class Item < ApplicationRecord
   belongs_to_active_hash :shipping_day
 
   with_options presence: true do
-    validates :image
+    validates :images
     validates :item_name
     validates :item_text
     validates :price, inclusion: { in: 300..9_999_999 }
   end
-  with_options numericality: { other_than: 0, message: 'Select' } do
+  with_options numericality: { other_than: 0, message: 'を選択してください' } do
     validates :category_id
     validates :status_id
     validates :delivery_charge_id

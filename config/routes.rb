@@ -3,6 +3,10 @@ Rails.application.routes.draw do
   root to: "items#index"
   resources :items do
     resources :purchases, only: [:index, :create]
-    #resources :cards, only: [:new, :create]
   end
+  resources :items, only: :order do
+    post 'purchases', on: :member
+  end
+  resources :cards, only: [:new, :create]
+  resources :users, only: [:new, :create, :show]
 end
